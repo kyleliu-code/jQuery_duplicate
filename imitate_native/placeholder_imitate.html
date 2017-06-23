@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>模仿placeholder</title>
+</head>
+
+<body>
+    <!-- <input type="text" class="input-text fl" value="请输入内容" onFocus="this.value = this.value == this.defaultValue ? '' : this.value;" onBlur="this.value = this.value == this.defaultValue || this.value == '' ? this.defaultValue : this.value;" /> -->
+     <input type="text" id="placeholder" value="请搜索">
+    <script type="text/javascript">
+      placeholder.onblur = function(){
+        // 这里短路操作一定要注意 赋值运算符优先级是最低的
+        // !this.value && (this.value = this.defaultValue);
+
+        this.value = this.value== this.defaultValue||this.value=="" ? this.defaultValue: this.value;
+      };  
+
+      placeholder.onfocus = function (){
+            // 这里利用的就是 可以将一个变量赋值给自身， x = x ;结果不变
+         this.value = this.value == this.defaultValue?'':this.value;
+
+        // this.value === this.defaultValue && (this.value = '');  
+      };
+
+    </script>
+</body>
+
+</html>
