@@ -1,0 +1,17 @@
+实现git 无密码 push 方法：
+
+1. 生成自己的 就这一条命令：ssh key ssh-keygen -t rsa
+打开 http://code.mociantek.com/user/settings/ssh 新增ssh key 并拷贝 ~/.ssh/id_rsa.pub 内容进去
+
+
+2. create a new repository on the command line
+
+echo "# demo4" >> README.md
+  git init
+  git add README.md
+  git commit -m "first commit"
+  git remote add origin git@github.com:wwwpalmercom/demo4.git
+  git push -u origin master
+
+
+ps: 即使不生成 密匙，也是可以通过 step2 直接 git push 提交
