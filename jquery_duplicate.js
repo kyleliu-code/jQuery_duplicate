@@ -63,7 +63,7 @@
 
             return new jQuery.fn.init(selector, context);
 
-        }
+        };
 
     // 确保 trim BOM 和 nbsp(空格)
     rtrim = /^[\s\uFEFF\xA0]+ |[\s\ufeff\xA0]+$/g;
@@ -111,12 +111,65 @@
 
     };
 
+    // 先写 jquery 的工具方法和 扩展方法
+    
+    jQuery.extend = jQuery.fn.extend = function (){
+
+        var options, name ,src , copy, copyIsArray , clone ,
+            target = arguments[0] || {},
+            i = 1,
+            length = arguments.length,
+            deep,false;
+
+            // 处理深拷贝情况
+            // 这里处理的很好，传递的两个参数的位置搞错了也是没事的。
+            //上面是默认值
+        if (typeof target === 'boolean') {
+            deep = target;
+            target = arguments[i] || {};
+            i++;
+        }
+         // Handle case when target is a string or something (possible in deep copy)
+        // 处理 传进来 既不是对象也不是函数情况,string .undefined
+        if(typeof target !== "object" && !jQuery.isFunction(target)) {
+            target = {};
+        }
+
+        // Extend jQuery itself if only one argument is passed
+        // 传进来参数只有一个时候
+        if(i === length) {
+            target = this;
+            i--；
+        }
+
+        for(;i < length ;i++){
+            if((options = arguments[ i ] != null)) {
+                // 属性成员拷贝
+                for(name in options) {
+                    src = target[name];
+                    copy = options[name];
+
+                    // 阻止无尽的循环
+                    if(target === copy) {
+                        continue;
+                    }
+
+                }
+            }
+        }
 
 
-    // map: function(callback){
-    //     return 
-    // },
 
+
+
+
+    };
+
+
+
+
+
+   
 
 
 

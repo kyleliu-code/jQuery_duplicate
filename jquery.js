@@ -542,6 +542,9 @@ function isArrayLike( obj ) {
     return type === "array" || length === 0 ||
         typeof length === "number" && length > 0 && ( length - 1 ) in obj;
 }
+
+
+// Sizzle 直接在内部
 var Sizzle =
 /*!
  * Sizzle CSS Selector Engine v2.3.3
@@ -2968,6 +2971,7 @@ var rootjQuery,
         var match, elem;
 
         // HANDLE: $(""), $(null), $(undefined), $(false)
+        // 返回的是  jQeury.prototype
         if ( !selector ) {
             return this;
         }
