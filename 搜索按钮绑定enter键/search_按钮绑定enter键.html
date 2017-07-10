@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索按钮绑定enter键</title>
+    <script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+    <input id="input" type="text">
+    <br>
+    <input type="button" value="search">
+    <script>
+
+    /* 总结下：
+        * dom 上的onblur 事件只有通过 dom.onblur = function..,不然默认为 null
+        * dom.addEventListener() 可以添加事件，但是与 onblur 不同，可以事件累加
+        * jQuery 中blur事件应该是通过 addEventListener 封装的
+        * 所以打印不出来 this.onblur 事件， 为 null 
+    */
+    // 第一种方式是 使用 延时定时器
+        // var timer = null;
+        // $("#input").keypress(function(event) {
+        //     /* Act on the event */
+        //     var code = event.which || event.keyCode; 
+
+        //     if(code === 13) {
+        //         clearTimeout(timer);
+
+        //         timer = setTimeout(function(){
+        //             _sensitiveWordQry();
+        //         },500);
+        //     }
+        // });
+// 第二种 在enter以后直接 输入框失去焦点
+        // document.getElementById("input").onblur = function(){
+        //     console.log("你好")
+        // };
+        // document.getElementById("input").addEventListener("blur",function(){
+        //     console.log("addEventListner");
+        // });
+
+        $("#input")
+        .blur(function(){console.log("hello")})
+        .keypress(function(event) {
+            console.log(this);
+            console.dir(this);
+            /* Act on the event */
+            var code = event.which || event.keyCode; 
+            if(code === 13) {
+               _sensitiveWordQry();
+               // $(this).blur();
+               // 在 dom 中 blur事件 默认为null ，所以执行前必须绑定事件
+               this.onblur();
+            }
+        });
+
+        function _sensitiveWordQry() {
+            console.log("search!");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>按钮样式</title>
+    <style>
+        .btn {
+            outline: none;
+            padding: 4px 14px;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 1.4285731429;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border:1px solid transparent;
+        }
+        .btn-red {
+            color:#fff;
+            background: #e32823;
+            border-color: #d43f3a;
+        }
+        .btn-red:hover {
+            color:#fff;
+            background: #ce1f1a;
+            border-color: #d43f3a;
+        }
+        .btn-disabled {
+            opacity: .65;
+            pointer-events: none;
+            cursor:not-allowed;
+        }
+    </style>
+</head>
+<body>
+<!-- 很兼容的按钮样式 -->
+    <input type="button" id="btn_red" class="btn btn-red" value="hello,world">
+</body>
+<script>
+    btn_red.onclick = function(){
+        // 点击后的不可点击状态直接加这个类名，效果就会消失
+        this.setAttribute("disabled",true);
+        this.className+= " btn-disabled";
+    }
+</script>
+</html>

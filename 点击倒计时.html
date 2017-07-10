@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>点击倒计时</title>
+</head>
+
+<body>
+    <input type="button" id="btn" value="免费获取验证码" />
+    <input type="button" id="btn2" value="免费获取验证码" />
+    <script type="text/javascript">
+    var wait = 10;
+    function time(o) {
+        if (wait === 0) {
+            o.removeAttribute("disabled");
+            o.value = "免费获取验证码";
+            wait = 10;
+            return;
+        } 
+        console.log(wait);
+         o.setAttribute("disabled", true);
+            o.value = "重新发送(" + wait + ")";
+            wait--;
+            setTimeout(function() {
+                    time(o)
+                },1000)
+    }
+
+    document.getElementById("btn").onclick = function() {
+        time(this);
+    }
+    var countdow = 10;
+    var timer = null;
+    </script>
+</body>
+
+</html>
