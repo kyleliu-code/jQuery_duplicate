@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>获取cookie中对应键的值</title>
+</head>
+
+<body>
+    <script>
+    // 可以获取 cookie 中的值， 这里获取value的方法可以学习下
+    // function getCookie(cookieName) {
+    //     var allcookies = document.cookie;
+    //     var cookiePos = allcookies.indexOf(cookieName);
+
+    //     if(cookiePos !== -1) {
+    //         //加一表示跳过后面的 等于号
+    //         cookiePos += cookieName.length + 1;
+    //         var cookieEnd = allcookies.indexOf(";",cookiePos);
+    //         if(cookieEnd === -1) {
+    //             cookieEnd = allcookies.length;
+    //         }
+
+    //         var value = decodeURI(allcookies.substring(cookiePos,cookieEnd));
+    //     }
+    //     return value;
+    // }
+    // document.cookie = "name='小明';age=18;gender=1";
+    // console.log(document.cookie);
+    // 
+
+    /* 下面的方法 涉及到 cookie 的增删查以及设置有效期*/
+
+    var username = document.cookie.split(";")[0].split("=")[1];
+    //JS操作cookies方法!
+    // 1. 写cookies
+    function setCookie(name, value) {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+    // 2. 读取cookie
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+
+    // 3. 删除 cookie
+    //  cookie 一般只能删除自己添加的
+
+    function delCookie(name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = getCookie(name);
+        if (cval != null)
+            document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    }
+    //使用示例
+    setCookie("name", "hayden");
+    alert(getCookie("name"));
+    // 4. 设置 cookie 存在的时长
+    //如果需要设定自定义过期时间
+    //那么把上面的setCookie　函数换成下面两个函数就ok;
+    //程序代码
+    function setCookie(name, value, time) {
+        var strsec = getsec(time);
+        var exp = new Date();
+        exp.setTime(exp.getTime() + strsec * 1);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+
+    function getsec(str) {
+        // alert(str);
+        var str1 = str.substring(1, str.length) * 1;
+        var str2 = str.substring(0, 1);
+        if (str2 == "s") {
+            return str1 * 1000;
+        } else if (str2 == "h") {
+            return str1 * 60 * 60 * 1000;
+        } else if (str2 == "d") {
+            return str1 * 24 * 60 * 60 * 1000;
+        }
+    }
+    //这是有设定过期时间的使用示例：
+    //s20是代表20秒
+    //h是指小时，如12小时则是：h12
+    //d是天数，30天则：d30
+    setCookie("name", "hayden", "s20");
+    
+    </script>
+</body>
+
+</html>
