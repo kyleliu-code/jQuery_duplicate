@@ -31,7 +31,7 @@
     var concat = arr.concat;
     var push = arr.push;
     var indexOf = arr.indexOf;
-    
+
     var class2type = {};
 
     var toString = class2type.toString;
@@ -112,46 +112,50 @@
     };
 
     // 先写 jquery 的工具方法和 扩展方法
-    
-    jQuery.extend = jQuery.fn.extend = function (){
 
-        var options, name ,src , copy, copyIsArray , clone ,
+    jQuery.extend = jQuery.fn.extend = function() {
+
+        var options, name, src, copy, copyIsArray, clone,
             target = arguments[0] || {},
             i = 1,
             length = arguments.length,
-            deep,false;
+            deep, false;
 
-            // 处理深拷贝情况
-            // 这里处理的很好，传递的两个参数的位置搞错了也是没事的。
-            //上面是默认值
+        // 处理深拷贝情况
+        // 这里处理的很好，传递的两个参数的位置搞错了也是没事的。
+        //上面是默认值
         if (typeof target === 'boolean') {
             deep = target;
             target = arguments[i] || {};
             i++;
         }
-         // Handle case when target is a string or something (possible in deep copy)
+        // Handle case when target is a string or something (possible in deep copy)
         // 处理 传进来 既不是对象也不是函数情况,string .undefined
-        if(typeof target !== "object" && !jQuery.isFunction(target)) {
+        if (typeof target !== "object" && !jQuery.isFunction(target)) {
             target = {};
         }
 
         // Extend jQuery itself if only one argument is passed
         // 传进来参数只有一个时候
-        if(i === length) {
+        if (i === length) {
             target = this;
-            i--；
+            i--;
         }
 
-        for(;i < length ;i++){
-            if((options = arguments[ i ] != null)) {
+        for (; i < length; i++) {
+            if ((options = arguments[i] != null)) {
                 // 属性成员拷贝
-                for(name in options) {
+                for (name in options) {
                     src = target[name];
                     copy = options[name];
 
                     // 阻止无尽的循环
-                    if(target === copy) {
+                    if (target === copy) {
                         continue;
+                    }
+
+                    if (deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
+
                     }
 
                 }
@@ -166,10 +170,68 @@
     };
 
 
+    jQuery.extend({
+
+        expando:"jQuery" + (version + Math.radom()).repalce(/\D/g,""),
+
+        isReady: true,
+        error: function (msg) {
+            throw new Error (msg);
+        },
+        noop: function () {},
+        isFunction:function (obj) {
+            return jQuery.type(obj) === "function";
+        },
+
+        isWindow: function (obj) {
+            // 判断是否为 window 对象
+            return obj != null && obj === obj.window;
+        },
+        isNumeric: function (obj) {
+
+            var type = jQuery.type(obj);
+            return (type === "number" || type === "string") && !isNaN(obj - paresFloat(obj));
+        },
+        // 这个不是很懂
+        isPlainObject: function (obj) {
+            var proto, Ctor;
+            // 使用call,比如 dom对象 就没有 toString 方法，但是可以使用call 来调用
+            if(!obj || toString.call(obj) !=="[object Object]"){
+                return false;
+            }
+            // 获取一个 对象的 原型对象，否则为 null
+            //   // Objects with no prototype (e.g., `Object.create( null )`) are plain
+            proto = getProto(obj);
+            if (!proto) {
+                return true;
+            }
+
+            Ctor = hasOwn.call(proto,"constructor") && proto.constructor;
+            return typeof Ctor ===  "function" && fnToString.call(Ctor) === ObjectFuncionString;
+        },
+
+        isEmptyObject:function (obj){
+            var name;
+            for(name in obj) {
+                return false;
+            }
+            return true;
+        },
+
+// 这个不是很懂
+        type: function (obj) {
+            if(obj == null) {
+                return null + "";
+            }
+            return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
+        },
+    });
 
 
 
-   
+
+
+
 
 
 
