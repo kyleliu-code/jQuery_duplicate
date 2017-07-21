@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>时间24小时格式转换</title>
+</head>
+
+<body>
+    <script>
+    function convertDate24(date) {
+
+        // 一般date 为 Date 实例
+        // 可以转换成 24 小时格式，并且显示格式有我们来控制
+        // 注意 getMonth表示： 0-11
+        return date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' + (date.getDate() < 10 ? '0' : '') + date.getDate() + ' ' + (date.getHours() < 10 ? '0' : '') + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() + ':' + (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
+        //  一定要注意 这里的 三目运算优先级问题 不加括号也会把 连接符并入运算
+    }
+    // 注意 月份在设置的时候注意 需要 加一
+    var time = new Date(2017,08,08,10,20,31);
+    console.log(convertDate24(time));
+    </script>
+</body>
+
+</html>
