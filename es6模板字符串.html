@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6模板字符串</title>
+</head>
+<body>
+    <script>
+        function convert (tpl,data) {
+            var re = /\$\{(\w+)\}/g,
+                match ;
+
+            while (match = re.exec(tpl)) {
+                tpl = tpl.replace(match[0],data[match[1]]);
+
+  // re.lastIndex 属性 只能在 全局属性的正则中才能使用，自动加或者操作
+                re.lastIndex = match.index + data[match[1]].length;
+                // 注意这里我们手动设置下次 遍历的起始位置
+            }
+            return tpl;
+        }
+
+        var str = "hello,world${demo},我叫${name}";
+
+        var x = convert(str,{demo:"你好世界",name:"小明"});
+        console.log(x);
+    </script>
+</body>
+</html>
