@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>artDemo</title>
+    <script src='js/zepto.js'></script>
+    <script src='js/template-web.js'></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <!--<script id="test" type="text/html">
+        <h1>{{title}}</h1>
+        <ul>
+            {{each list as value i}}
+            <li>索引 {{i + 1}} ：{{value}}</li>
+            {{/each}}
+        </ul>
+    </script>
+    <script src="js/template-web.js"></script>
+    <script>
+    var data = {
+        title: '标签',
+        list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
+    };
+    var html = template('test', data);
+    document.getElementById('content').innerHTML = html;
+    </script>-->
+    <script>
+    $(function() {
+                var data1 = {
+                    list: [{
+                            title: '周一',
+                            tags: {
+                                x: [{ "tags": '英语' }, {
+                                    "tags": '语文'
+                                }, {
+                                    "tags": '数学'
+                                }, {
+                                    "tags": '政治'
+                                }]
+                            }
+                        },
+                        {
+                            title: '周二',
+                            tags: {
+                                x: [{ "tags": '地理' }, {
+                                    "tags": '体育'
+                                }, {
+                                    "tags": '英语'
+                                }, {
+                                    "tags": '历史'
+                                }]
+                            }
+                        }
+                    ]
+                }
+                    var html = template("art3", data1);
+                    console.log(html);
+                    $("#content").append(html);
+                })
+    </script>
+<!--     <script id="art3" type="text/html">
+        {{each list}}
+        <div>
+            <h2>{{$value.title}}</h2> {{include 'art4' $value.tags}}
+        </div>
+        {{/each}}
+    </script>
+    <script id="art4" type="text/html">
+        <ul>
+            {{each x}}
+            <li>{{$value.tags}}</li>
+            {{/each}}
+        </ul>
+    </script> -->
+
+    <!-- 原生方法实现 teplateEngine 循环套欠 -->
+    <script id="art3" type="text/html">
+      <%for (var i = 0;i< list.length;i++){%>
+        <div>
+            <h2><%= list[i].title%></h2> 
+            <%include("art4",list[i].tags)%>
+        </div>
+     <%}%>
+    </script>
+    <script id="art4" type="text/html">
+        <ul>
+           <%for(var i = 0 ; i< x.length;i++){%>
+            <li><%= x[i].tags%></li>
+            <%}%>
+        </ul>
+    </script>
+</body>
+
+</html>
