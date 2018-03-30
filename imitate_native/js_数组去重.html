@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js数组去重</title>
+</head>
+<body>
+    <script>
+        //记得js 数组去重3种方法： 1. for 循环两次 2. 使用 Array.prototype.indexOf[注意这个方法是 es5 的，兼容性] 3. 使用 对象的键具有唯一性的这一特性，其实在python中的 sets　key 也是具有唯一性的
+        // 这个方法 调用完后是需要赋值的。
+        Array.prototype.unique = function () {
+            var arr = [],
+                obj = {};
+            for (var i = 0; i < this.length; i++) {
+                if (!obj[this[i]]) {
+                    arr.push(this[i]);
+                    obj[this[i]] = true;
+                } 
+            }
+            return arr; 
+        }
+        // 上述还是需要进行一次 赋值的
+        var arr  = [1,2,4,3,2,1];
+        // arr = arr.unique();
+        // console.log(arr);
+
+        // 稍微修改一下
+        Array.prototype.unique2 = function () {
+            var obj = {};
+
+            for (var i = 0 ; i <this.length; i++) {
+                if (!obj[this[i]])
+                    obj[this[i]] = true;
+                else 
+                    this.splice(i,1);
+            }
+        } 
+        arr.unique2();
+        console.log(arr);
+    </script>
+</body>
+</html>
