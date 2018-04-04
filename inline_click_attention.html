@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>行内点击事件注意问题</title>
+</head>
+<body>
+    <h1>行内点击事件注意事项</h1>
+    <div>
+        <p>1. 行内点击事件函数，变量的访问都需要是<mark>全局变量</mark></p>
+        <p>2. 字符串拼接生成标签的时候，注意会有一个 <mark>隐式 toString() 转换</mark></p>
+    </div>
+    <hr>
+    <script>
+        // var obj = {
+        //     name: 'Kyle',
+        //     age: 19
+        // }
+        // 这里在拼接的时候一定会有一个字符串隐式转换， obj.toString() ==> "[object Object]"
+        // document.body.innerHTML = '<a href="javascript:;" onclick="printOut('+ obj +')">link</a>';
+        // 这里访问的是全局变量 obj
+        // 注意一下 行内点击事件需要使用全局变量
+        // document.body.innerHTML = '<a href="javascript:;" onclick="printOut(obj)">link</a>';
+        function printOut (value) {
+            console.log(value);
+        }
+        
+        // 显然在闭包之后 obj is not defined
+        (function(){
+            var obj = {
+                name: 'tom',
+                age: 19
+            };
+            var num = 0089;
+            // document.body.innerHTML = '<a href="javascript:;" onclick="print(obj)">link2</a>';
+            // document.body.innerHTML = '<a href="javascript:;" onclick="printOut('+ num +')">link2</a>'; // 89 ，0 没有了
+           
+        }());
+    </script>
+</body>
+</html>
