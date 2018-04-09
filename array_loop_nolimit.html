@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组循环简洁写法</title>
+    <style>
+        .content {
+            margin: 100px auto;
+            width: 200px;
+            height: 200px;
+        }
+        .toolbar {
+            text-align: center;
+        }
+        .toolbar {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content"></div>
+    <div class="toolbar">
+        <button onclick="changeColor('prev');">prev</button>
+        <button onclick="changeColor('next')">next</button>
+    </div>
+    <script>
+        /** 
+         * 1. 本文讲述一个数组的 无限循环简洁写法 
+         * 2. 可以应用于轮播图， 数组的各种循环使用中 */
+        let colorList = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple'];
+        // 初始化 数据
+        let currentIndex = 0;
+        var content = document.getElementsByClassName('content')[0];
+        content.style.backgroundColor= colorList[currentIndex];
+        
+
+        // 1. x = a%b： x 范围： [0,b) 
+        // 2. 在取模的时候 无论加上多少个 length 都无所谓
+        // 3. 数组正序： 0, 1,2,3 ... , length -1 ；逆序： length-1, length -2 ,length -3 , ... , 1 , 0
+        function changeColor (value){
+            let newIndex;
+            let length = colorList.length;
+        
+            if (value === "prev") {
+                newIndex = (currentIndex - 1 + length) % length;
+            } else if (value === "next"){
+                newIndex = (currentIndex + 1) % length;
+            }
+            content.style.backgroundColor= colorList[newIndex];
+            currentIndex = newIndex;
+        }
+    </script>
+</body>
+
+</html>
