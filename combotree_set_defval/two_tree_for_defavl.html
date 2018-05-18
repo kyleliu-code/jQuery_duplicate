@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>两颗树的情况下设置默认值</title>
+    <style>
+        .wrapper {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./css/easyui.css">
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.easyui.min.js"></script>
+    <!-- <script src="./js/easyui1.4.js"></script> -->
+    <script src="./js/combotree_data.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <section class="left-tree">
+            <h2>Basic ComboTree</h2>
+            <p>Click the right arrow buleft_treeon to show the tree panel.</p>
+            <div style="margin:20px 0"></div>
+            <div class="easyui-panel" style="width:100%;max-width:400px;padding:30px 60px;">
+                <div style="margin-boleft_treeom:20px">
+                    <input id="left_tree" style="width: 100%;">
+                </div>
+            </div>
+        </section>
+        <section class="right-tree">
+            <h2>Basic ComboTree</h2>
+            <p>Click the right arrow buleft_treeon to show the tree panel.</p>
+            <div style="margin:20px 0"></div>
+            <div class="easyui-panel" style="width:100%;max-width:400px;padding:30px 60px;">
+                <div style="margin-boleft_treeom:20px">
+                    <input id="right_tree" style="width: 100%;">
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+<script>
+    // 比如说 需要设置默认值为 
+    $('#left_tree').combotree({
+        data: comboreeData,
+        label: 'Select Node:',
+        labelPosition: 'top',
+        // valueField: 'id',
+        // value: 111,
+        onBeforeSelect: function (node) {
+            // 只能选中叶子节点
+            if (!$(this).tree('isLeaf', node.target)) {
+                return false;
+            }
+        },
+        onSelect: function () {
+            // alert('select!');
+            // 每次选择的时候 ，right-tree 清空值 加载数据
+            LoadData();
+        }
+    });
+
+    // 声明 right_tree
+    $('#right_tree').combotree({
+        label: 'Select Node:',
+        labelPosition: 'bottom',
+        valueField: 'id', // value: 111 
+        disabled: true
+    });
+
+    // 主动触发了 select 事件, 在 easyui 1.4 中 setValue 会触发 onSelect 事件   
+    var tree = $('#left_tree').combotree('tree');
+    var node = tree.tree('find', 111);
+    tree.tree('select', node.target);
+    // set left_tree defval
+    $('#left_tree').combotree('setValue', 111);
+
+    function LoadData() {
+
+        $('#right_tree').combotree('loadData', comboreeData)
+        .combotree('clear')
+        .combotree({disabled: false});
+    }
+
+
+
+
+
+    // select 方法的触发 , 在 jquery 1.4 中是可以触发的， 1.5.5 需要通过 手动 触发
+    // $('#left_tree').combotree('setValue', 111);
+</script>
+
+</html>

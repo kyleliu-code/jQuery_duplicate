@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>只有一颗树的情况下设置默认值</title>
+	<link rel="stylesheet" type="text/css" href="./css/easyui.css">
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="./js/jquery.easyui.min.js"></script> -->
+	<script src="./js/easyui1.4.js"></script>
+	<script src="./js/combotree_data.js"></script>
+</head>
+
+<body>
+
+	<h2>Basic ComboTree</h2>
+	<p>Click the right arrow button to show the tree panel.</p>
+	<div style="margin:20px 0"></div>
+	<div class="easyui-panel" style="width:100%;max-width:400px;padding:30px 60px;">
+		<div style="margin-bottom:20px">
+			<input id="tt" style="width: 100%;">
+			<!-- <input id="tt" class="easyui-combotree" data-options="url:'tree_data1.json',method:'get',label:'Select Node:',labelPosition:'top'" style="width:100%"> -->
+		</div>
+	</div>
+</body>
+<script>
+	// 比如说 需要设置默认值为 
+	$('#tt').combotree({
+		// url: 'tree_data1.json',
+		data: comboreeData,
+
+		// method: 'get',
+		label: 'Select Node:',
+		labelPosition: 'top',
+		// Kyle: 设置默认值方法 1
+
+		// textField: 'text',
+		// valueField: 'id',
+		// value: 111,
+		onLoadSuccess: function () {
+			// Kyle: 设置默认值 方法 2
+			// $('#tt').combotree('setValue', 111);
+
+
+
+			// // 主动触发了 select 事件
+			// var tree = $('#tt').combotree('tree');
+			// var node = tree.tree('find', 111);
+			// tree.tree('select', node.target);
+		},
+		onBeforeSelect: function (node) {
+			// 只能选中叶子节点
+			if (!$(this).tree('isLeaf', node.target)) {
+				return false;
+			}
+		},
+		onSelect: function () {
+			alert('selcet!')
+		},
+		onClick: function () {
+			alert('click');
+		}
+	});
+
+	// Kyle: 设置默认值 方法 3
+	// 需要用在 tree panel dom 加载完成后 
+	// 1. 比如在使用 异步加载的时候，就会遇到这个问题 ，本地数据没有加载
+	// 或者说 panel 中没有对应的子节点的时候就会出现这个问题
+	// $('#tt').combotree('setValue', 111);
+
+	// 正常加载数据，tree panel dom 上没有对应的 节点
+	// $('#tt').combotree('setValue', 1000);
+
+	// select 方法的触发 , 在 jquery 1.4 中是可以触发的， 1.5.5 需要通过 手动 触发
+ 	// $('#tt').combotree('setValue', 111);
+	
+
+</script>
+
+</html>
