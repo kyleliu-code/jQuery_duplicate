@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Frozen Columns in DataGrid - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" href="./css/easyui.css">
+    <script src="./js/jquery.min.js"></script>
+    <!-- <script src="./js/jquery.easyui.min.js"></script> -->
+    <script src="./js/easyui1.4.js"></script>
+    <script src="./js/column_moving.js"></script>
+    <!-- <script src="./js/columnMove.js"></script> -->
+    <script src="./js/data.js"></script>
+</head>
+
+<body>
+    <h2>Frozen Columns in DataGrid</h2>
+    <p>You can freeze some columns that can't scroll out of view.</p>
+    <div style="margin:20px 0;"></div>
+    <table id="tt" class="easyui-datagrid" title="Frozen Columns in DataGrid" style="width:700px;height:250px">
+        <thead data-options="frozen:true">
+            <tr>
+                <th data-options="field:'itemid',width:100">Item ID</th>
+                <th data-options="field:'productid',width:120">Product</th>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <th data-options="field:'listprice',width:90,align:'right'">List Price</th>
+                <th data-options="field:'unitcost',width:90,align:'right'">Unit Cost</th>
+                <th data-options="field:'attr1',width:250">Attribute</th>
+                <th data-options="field:'status',width:60,align:'center'">Status</th>
+            </tr>
+        </thead>
+    </table>
+
+    <script>
+//  data-options="url:'datagrid_data1.json',method:'get'"
+       $(function () {
+           $('#tt').datagrid({
+                rownumbers:true,
+                singleSelect:true,
+                data: data
+           }).datagrid('columnMoving');
+       });
+    </script>
+</body>
+
+</html>
