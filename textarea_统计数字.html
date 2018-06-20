@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>textarea 统计数字</title>
+    <script src="http://code.jquery.com/jquery-1.4.1.js"></script>
+</head>
+
+<body>
+    <div>
+        <textarea cols="40" rows="5" id="note" name="note" maxlength="100"
+            placeholder="最多可输入100字"></textarea>
+    </div>
+    <br/>
+    <button id="btn1">submit1</button>
+    <div>
+        <textarea cols="40" rows="5" id="note2" name="note2" maxlength="100" value="" 
+            placeholder="最多可输入100字"></textarea>
+        <span id="text-count2" value="">0</span>/100
+    </div>
+    <br/>
+    <button id="btn2">submit2</button>
+    <script type="text/javascript">
+        //字数限制
+        $(function () {
+ $('#btn1').click(function () {
+        var value = $.trim($('#note').val());
+            if (value.length > 100) {
+                alert('最多100个字符，当前字符数'+ value.length); 
+            }
+        });
+            document.getElementById('note').onkeyup = function () {
+                document.getElementById('text-count').innerHTML = this.value.length;
+            }
+            //（jquery）
+            $('#note2').keyup(function () {
+                var len = this.value.length
+                $('#text-count2').text(len);
+
+            });
+        });
+            
+    </script>
+</body>
+
+</html>
