@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hover_demo</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <style>
+        header {
+            text-align: center;
+        }
+
+        .sub-menu {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: lime;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+        <header>
+            <nav>
+                <a href="#">菜单1</a>
+                <a href="#">菜单2</a>
+            </nav>
+        </header>
+
+    </article>
+    <div class="sub-menu">
+        菜单展示
+    </div>
+    <script>
+        $('header a').hover(function () {
+            console.log('onmouseenter');
+            var offset = $(this).offset();
+            $('.sub-menu').show().css({
+                left: offset.left,
+                top: offset.top + $(this).height()
+            });
+        }, function () {
+            console.log('onmouseout');
+            $('.sub-menu').hide();
+        });
+
+        $('.sub-menu').hover(function (){
+            $(this).show();
+        }, function () {
+            $(this).hide();
+        })
+        // 二级菜单的展示可以做成接口的形式，棒棒哒
+        // 
+    </script>
+</body>
+
+</html>
